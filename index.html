@@ -1,66 +1,238 @@
-<style>
-    .wheel {
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        position: relative;
-        overflow: hidden;
-        border: 8px solid #fbbf24;
-        box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-    }
-    
-    .wheel-segment {
-        position: absolute;
-        width: 50%;
-        height: 50%;
-        transform-origin: 100% 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .wheel-segment:nth-child(1) { 
-        transform: rotate(0deg); 
-        background: #ef4444; 
-    }
-    .wheel-segment:nth-child(2) { 
-        transform: rotate(60deg); 
-        background: #6b7280; 
-    }
-    .wheel-segment:nth-child(3) { 
-        transform: rotate(120deg); 
-        background: #ef4444; 
-    }
-    .wheel-segment:nth-child(4) { 
-        transform: rotate(180deg); 
-        background: #6b7280; 
-    }
-    .wheel-segment:nth-child(5) { 
-        transform: rotate(240deg); 
-        background: #ef4444; 
-    }
-    .wheel-segment:nth-child(6) { 
-        transform: rotate(300deg); 
-        background: #10b981; 
-    }
-    
-    .wheel-text {
-        color: #fff;
-        font-weight: bold;
-        font-size: 20px;          /* plus grand */
-        text-align: center;
-        transform: rotate(-30deg);
-        margin-top: -55px;        /* centré verticalement */
-        margin-left: 5px;         /* centré horizontalement */
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* meilleure lisibilité */
-    }
-    
-    .spinning {
-        animation: spin 4s ease-out;
-    }
-    
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(1620deg); }
-    }
-</style>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Bet - Jeu </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #fbbf24;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+        }
+        
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wheel-segment:nth-child(1) { 
+            transform: rotate(0deg); 
+            background: #ef4444; 
+        }
+        .wheel-segment:nth-child(2) { 
+            transform: rotate(60deg); 
+            background: #6b7280; 
+        }
+        .wheel-segment:nth-child(3) { 
+            transform: rotate(120deg); 
+            background: #ef4444; 
+        }
+        .wheel-segment:nth-child(4) { 
+            transform: rotate(180deg); 
+            background: #6b7280; 
+        }
+        .wheel-segment:nth-child(5) { 
+            transform: rotate(240deg); 
+            background: #ef4444; 
+        }
+        .wheel-segment:nth-child(6) { 
+            transform: rotate(300deg); 
+            background: #10b981; 
+        }
+        
+        .wheel-text {
+            color: white;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center;
+            transform: rotate(-30deg);
+            margin-top: -60px;
+            margin-left: 20px;
+        }
+        
+        .spinning {
+            animation: spin 4s ease-out;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(1620deg); }
+        }
+        
+        .demo-banner {
+            background: linear-gradient(45deg, #10b981, #3b82f6);
+            animation: pulse 2s infinite;
+        }
+        
+        .winner-segment {
+            background: #10b981 !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen">
+    <!-- Demo Banner -->
+    <div class="demo-banner text-center py-3 text-white font-bold text-lg">
+      
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-5xl font-bold text-yellow-400 mb-2">🍀 LUCKY BET 🍀</h1>
+            <p class="text-white text-xl"></p>
+            <div class="bg-green-600 text-white px-4 py-2 rounded-lg mt-4 inline-block">
+                ✅ TENTER DE GAGNER JUSQUA 50000F
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registrationForm" class="max-w-md mx-auto bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-white mb-6 text-center">Inscription</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-white font-semibold mb-2">Nom complet *</label>
+                    <input type="text" id="playerName" class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:border-yellow-400 focus:outline-none" placeholder="Votre nom complet" required>
+                </div>
+                
+                <div>
+                    <label class="block text-white font-semibold mb-2">Âge *</label>
+                    <input type="number" id="playerAge" min="18" class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:border-yellow-400 focus:outline-none" placeholder="Votre âge" required>
+                </div>
+                
+                <div>
+                    <label class="block text-white font-semibold mb-2">Code promo (optionnel)</label>
+                    <input type="text" id="promoCode" class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:border-yellow-400 focus:outline-none" placeholder="Code promo">
+                </div>
+                
+                <button onclick="register()" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-200">
+                    S'INSCRIRE ET JOUER 🎯
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div id="gameArea" class="hidden">
+            <div class="text-center mb-8">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold text-white mb-4">Bienvenue <span id="welcomeName" class="text-yellow-400"></span>!</h3>
+                    <p class="text-white mb-4">Vous avez droit à <span class="text-yellow-400 font-bold">UN SEUL TOUR</span></p>
+                    <p class="text-green-400 font-bold mb-2"></p>
+                    <p class="text-sm text-gray-300">Segments: 5,000F • Perdu • 1,000F • Perdu • 15,000F • 50,000F</p>
+                </div>
+            </div>
+
+            <!-- Wheel -->
+            <div class="flex justify-center mb-8">
+                <div class="relative">
+                    <div id="wheel" class="wheel">
+                        <div class="wheel-segment">
+                            <div class="wheel-text">5,000F</div>
+                        </div>
+                        <div class="wheel-segment">
+                            <div class="wheel-text">PERDU</div>
+                        </div>
+                        <div class="wheel-segment">
+                            <div class="wheel-text">1,000F</div>
+                        </div>
+                        <div class="wheel-segment">
+                            <div class="wheel-text">PERDU</div>
+                        </div>
+                        <div class="wheel-segment">
+                            <div class="wheel-text">15,000F</div>
+                        </div>
+                        <div class="wheel-segment winner-segment">
+                            <div class="wheel-text">50,000F</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pointer -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
+                        <div class="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-yellow-400"></div>
+                    </div>
+                    
+                    <!-- Center button -->
+                    <button id="spinButton" onclick="spinWheel()" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-full shadow-lg transition-all duration-200 hover:scale-110">
+                        TOURNER!
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div id="result" class="hidden text-center">
+                <div class="bg-gradient-to-r from-green-400 to-blue-500 rounded-2xl p-8 max-w-md mx-auto">
+                    <h3 class="text-3xl font-bold text-white mb-4">🎉 FÉLICITATIONS! 🎉</h3>
+                    <p class="text-2xl font-bold text-yellow-300 mb-4">Vous avez gagné: 50,000F</p>
+                    <p class="text-white mb-6">Contactez-nous sur WhatsApp pour retirer vos gains!</p>
+                    <a href="https://wa.me/+2250720467813" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 hover:scale-105">
+                        📱 Contacter sur WhatsApp
+                    </a>
+                    <div class="mt-4 text-sm text-gray-200">
+                        ⚠️  - en cas de victoire vous serez dans l'obligation de payer les frais avant de recevoir vos gains
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hasSpun = false;
+
+        function register() {
+            const name = document.getElementById('playerName').value.trim();
+            const age = document.getElementById('playerAge').value;
+            
+            if (!name || !age) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+            
+            if (age < 18) {
+                alert('Vous devez avoir au moins 18 ans pour jouer');
+                return;
+            }
+            
+            document.getElementById('welcomeName').textContent = name;
+            document.getElementById('registrationForm').classList.add('hidden');
+            document.getElementById('gameArea').classList.remove('hidden');
+        }
+
+        function spinWheel() {
+            if (hasSpun) {
+                alert('Vous avez déjà utilisé votre tour!');
+                return;
+            }
+            
+            hasSpun = true;
+            const wheel = document.getElementById('wheel');
+            const spinButton = document.getElementById('spinButton');
+            
+            spinButton.disabled = true;
+            spinButton.textContent = 'EN COURS...';
+            
+            wheel.classList.add('spinning');
+            
+            // Animation de 4 secondes, puis affichage du résultat
+            setTimeout(() => {
+                document.getElementById('result').classList.remove('hidden');
+                
+                wheel.classList.remove('spinning');
+                spinButton.textContent = 'TERMINÉ';
+                spinButton.classList.add('opacity-50', 'cursor-not-allowed');
+            }, 4000);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97973845061cb7a7',t:'MTc1NjkyMzE5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
