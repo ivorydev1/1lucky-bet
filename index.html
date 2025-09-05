@@ -1,118 +1,66 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lucky Bet - Jeu</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
+<style>
     .wheel {
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      position: relative;
-      overflow: hidden;
-      border: 10px solid #fbbf24;
-      box-shadow: 0 0 25px rgba(251, 191, 36, 0.5);
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        border: 8px solid #fbbf24;
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
     }
+    
     .wheel-segment {
-      position: absolute;
-      width: 50%;
-      height: 50%;
-      transform-origin: 100% 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        transform-origin: 100% 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+    
+    .wheel-segment:nth-child(1) { 
+        transform: rotate(0deg); 
+        background: #ef4444; 
+    }
+    .wheel-segment:nth-child(2) { 
+        transform: rotate(60deg); 
+        background: #6b7280; 
+    }
+    .wheel-segment:nth-child(3) { 
+        transform: rotate(120deg); 
+        background: #ef4444; 
+    }
+    .wheel-segment:nth-child(4) { 
+        transform: rotate(180deg); 
+        background: #6b7280; 
+    }
+    .wheel-segment:nth-child(5) { 
+        transform: rotate(240deg); 
+        background: #ef4444; 
+    }
+    .wheel-segment:nth-child(6) { 
+        transform: rotate(300deg); 
+        background: #10b981; 
+    }
+    
     .wheel-text {
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      text-align: center;
-      transform: rotate(-15deg);
-      margin-top: -70px;
-      margin-left: 25px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 20px;          /* plus grand */
+        text-align: center;
+        transform: rotate(-30deg);
+        margin-top: -55px;        /* centré verticalement */
+        margin-left: 5px;         /* centré horizontalement */
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* meilleure lisibilité */
     }
+    
     .spinning {
-      animation: spin 4s ease-out;
+        animation: spin 4s ease-out;
     }
+    
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(2160deg); }
+        from { transform: rotate(0deg); }
+        to { transform: rotate(1620deg); }
     }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen">
-  <div class="container mx-auto px-4 py-8">
-    <div class="text-center mb-8">
-      <h1 class="text-5xl font-bold text-yellow-400 mb-2">🍀 LUCKY BET 🍀</h1>
-      <div class="bg-green-600 text-white px-4 py-2 rounded-lg mt-4 inline-block">
-        ✅ TENTEZ DE GAGNER JUSQU’À 50,000F
-      </div>
-    </div>
-
-    <!-- Zone de jeu -->
-    <div class="flex justify-center mb-8">
-      <div class="relative">
-        <div id="wheel" class="wheel">
-          <!-- 12 Segments -->
-          <div class="wheel-segment" style="transform: rotate(0deg); background:#ef4444;"><div class="wheel-text">PERDU</div></div>
-          <div class="wheel-segment" style="transform: rotate(30deg); background:#6b7280;"><div class="wheel-text">1,000F</div></div>
-          <div class="wheel-segment" style="transform: rotate(60deg); background:#ef4444;"><div class="wheel-text">PERDU</div></div>
-          <div class="wheel-segment" style="transform: rotate(90deg); background:#6b7280;"><div class="wheel-text">5,000F</div></div>
-          <div class="wheel-segment" style="transform: rotate(120deg); background:#ef4444;"><div class="wheel-text">PERDU</div></div>
-          <div class="wheel-segment" style="transform: rotate(150deg); background:#10b981;"><div class="wheel-text">10,000F</div></div>
-          <div class="wheel-segment" style="transform: rotate(180deg); background:#ef4444;"><div class="wheel-text">PERDU</div></div>
-          <div class="wheel-segment" style="transform: rotate(210deg); background:#3b82f6;"><div class="wheel-text">20,000F</div></div>
-          <div class="wheel-segment" style="transform: rotate(240deg); background:#ef4444;"><div class="wheel-text">PERDU</div></div>
-          <div class="wheel-segment" style="transform: rotate(270deg); background:#f59e0b;"><div class="wheel-text">30,000F</div></div>
-          <div class="wheel-segment" style="transform: rotate(300deg); background:#ef4444;"><div class="wheel-text">PERDU</div></div>
-          <div class="wheel-segment" style="transform: rotate(330deg); background:#10b981;"><div class="wheel-text">50,000F</div></div>
-        </div>
-
-        <!-- Flèche -->
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
-          <div class="w-0 h-0 border-l-6 border-r-6 border-b-12 border-l-transparent border-r-transparent border-b-yellow-400"></div>
-        </div>
-
-        <!-- Bouton -->
-        <button id="spinButton" onclick="spinWheel()" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-full shadow-lg transition-all duration-200 hover:scale-110">
-          TOURNER!
-        </button>
-      </div>
-    </div>
-
-    <!-- Résultat -->
-    <div id="result" class="hidden text-center">
-      <div class="bg-gradient-to-r from-green-400 to-blue-500 rounded-2xl p-8 max-w-md mx-auto">
-        <h3 class="text-3xl font-bold text-white mb-4">🎉 FÉLICITATIONS! 🎉</h3>
-        <p id="resultText" class="text-2xl font-bold text-yellow-300 mb-4"></p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let hasSpun = false;
-    function spinWheel() {
-      if (hasSpun) {
-        alert("Vous avez déjà joué !");
-        return;
-      }
-      hasSpun = true;
-      const wheel = document.getElementById("wheel");
-      const spinButton = document.getElementById("spinButton");
-      spinButton.disabled = true;
-      spinButton.textContent = "EN COURS...";
-      wheel.classList.add("spinning");
-
-      setTimeout(() => {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("resultText").textContent = "Résultat affiché ici!";
-        wheel.classList.remove("spinning");
-        spinButton.textContent = "TERMINÉ";
-        spinButton.classList.add("opacity-50", "cursor-not-allowed");
-      }, 4000);
-    }
-  </script>
-</body>
-</html>
+</style>
